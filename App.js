@@ -11,7 +11,7 @@ export default function App() {
       background: 'rgb(242, 242, 242)',
       card: '#1976D2',
       text: 'rgb(242, 242, 242)',
-      // border: 'rgb(199, 199, 204)',
+      border: 'rgb(199, 199, 204)',
       // notification: 'rgb(255, 69, 58)',
     },
   };
