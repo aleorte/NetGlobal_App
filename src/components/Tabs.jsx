@@ -16,7 +16,7 @@ const Tabs = () => {
             iconName = focused ? "ios-home" : "home-outline";
           } else if (route.name === "Tareas") {
             iconName = focused ? "briefcase" : "briefcase-outline";
-          } else if (route.name === "Mis Solicitudes") {
+          } else if (route.name === "Solicitudes") {
             iconName = focused ? "file-tray-full" : "file-tray-full-outline";
           } else {
             iconName = focused ? "person" : "person-outline";
@@ -28,7 +28,7 @@ const Tabs = () => {
     >
       <Tab.Screen name="Inicio" component={Home} />
       <Tab.Screen name="Tareas" component={Inactivities} />
-      <Tab.Screen name="Mis Solicitudes" component={Inactivities} />
+      <Tab.Screen name="Solicitudes" component={Inactivities} />
       <Tab.Screen name="Mi Perfil" component={Profile} />
     </Tab.Navigator>
   );
