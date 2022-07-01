@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "./Home";
+import Inicio from "./Inicio";
 import Profile from "./Profile";
 import Inactivities from "./Inactivities";
 import { Ionicons } from "@expo/vector-icons";
@@ -26,7 +26,7 @@ const Tabs = () => {
         },
       })}
     >
-      <Tab.Screen name="Inicio" component={Home} />
+      <Tab.Screen name="Inicio" component={Inicio} />
       <Tab.Screen name="Tareas" component={Inactivities} />
       <Tab.Screen name="Solicitudes" component={Inactivities} />
       <Tab.Screen name="Mi Perfil" component={Profile} />
