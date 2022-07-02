@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Home from "./Home";
 import Login from "./Login";
-import { Text, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setGuard } from "../state/guards";
 import { getData } from "../utils/asyncStorage";
+import ForgotPassword from "./ForgotPassword";
+import { NativeRouter,Routes,Route} from "react-router-native";
+import Loading from "./Loading";
+import ConfirmCode from "./ConfirmCode";
+import NewPassword from "./NewPassword"
 
 const Options = () => {
 
@@ -25,31 +29,26 @@ const Options = () => {
 
   if (notShow) {
     return (
-      <View style={styles.loading}>
-        <Text style={styles.text}>Cargando...</Text>
-      </View>
+      <Loading />
     );
   } else if (guard.id) {
     return (
-        <Home/>
-    );
+     <Home />
+      );
   } else {
     return (
-        <Login/>
+      <NativeRouter>
+      <Routes>
+          <Route path="/" element = {<Login />} />
+          <Route path="/recover" element = {<ForgotPassword />} />
+          <Route path="/code" element = {<ConfirmCode />} />
+          <Route path="/confirm" element = {<NewPassword />} />
+
+
+      </Routes>
+      </NativeRouter>
     );
   }
 };
-const styles = StyleSheet.create({
-  loading: {
-    flex: 1,
-    backgroundColor: "#1976D2",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-});
+
 export default Options;

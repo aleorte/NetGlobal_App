@@ -4,10 +4,12 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useState } from "react";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-native";
 import { getGuard } from "../state/guards";
 
 
@@ -15,11 +17,14 @@ const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const onSubmit = ()=>{
     dispatch(getGuard({email:email,password:password}))
   }
-  
+  const handleRecoverPassword = ()=>{
+    navigate("/recover")
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
@@ -36,10 +41,10 @@ const Login = () => {
         value = {password} 
         onChangeText = {(e)=>setPassword(e)}
       />
-      <TouchableHighlight>
-        <Text style={styles.text}>¿Olvidaste tu contraseña?</Text>
-      </TouchableHighlight>
-      <TouchableHighlight onPress={onSubmit} style={styles.button}>
+      <TouchableWithoutFeedback>
+        <Text onPress={handleRecoverPassword} style={styles.text}>¿Olvidaste tu contraseña?</Text>
+      </TouchableWithoutFeedback>
+      <TouchableHighlight underlayColor={"#1976D2"} onPress={onSubmit} style={styles.button}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableHighlight>
     </View>
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     paddingHorizontal: 30,
     marginHorizontal: 40,
-    borderRadius: 20,
+    borderRadius: 15,
   },
   button: {
     alignSelf: "stretch",
@@ -85,6 +90,8 @@ const styles = StyleSheet.create({
     color: "#1976D2",
     paddingTop: 10,
     paddingLeft: 110,
+    textDecorationLine: "underline"
+
   },
 });
 
