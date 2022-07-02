@@ -3,11 +3,9 @@ import {
   View,
   TextInput,
   TouchableHighlight,
-  TouchableOpacity,
   StyleSheet,
 } from "react-native";
 import { useState } from "react";
-import { Navigate } from "react-router-native";
 import { useNavigate } from "react-router-native";
 
 const NewPassword = () => {
