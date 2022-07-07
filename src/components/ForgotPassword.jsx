@@ -1,45 +1,75 @@
-import { Text, View ,TextInput,StyleSheet,TouchableWithoutFeedback} from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableHighlight
+} from "react-native";
 import { useState } from "react";
 import { useNavigate } from "react-router-native";
+import axios from "axios";
+import AppLoader from "./AppLoader";
 
 const ForgotPassword = () => {
-  const [email,setEmail] = useState();
+  const [email, setEmail] = useState("");
+  const [loaderVisible,setLoaderVisible] = useState(false)
+
   const navigate = useNavigate();
 
-  const handlePrevious=()=>{
-    navigate("/")
-  }
-  const handleNext=()=>{
-    navigate("/code")
-  }
+  const handlePrevious = () => {
+    navigate("/");
+  };
+  const handleNext = async () => {
+    setLoaderVisible(true)
+    try{
+      await axios.post("http://localhost:3001/forgot-password", {
+        email: email.toLowerCase(),
+      });
+      navigate(`/code/${email.toLowerCase()}`);
+
+    }catch(err)
+    {
+      setLoaderVisible(false)
+      alert("El email ingresado no se encuentra registrado. Inténtelo nuevamente.")
+    }
+  };
 
   return (
-    <View style= {styles.container}>
-        <Text style= {styles.title}>
+    <>
+    <View style={styles.container}>
+      <Text style={styles.title}>
         Ingrese el mail de la cuenta a recuperar:
-        </Text>
-        <TextInput
-          style = {styles.input}
-          placeholder="email"
-          value={email} 
-          onChangeText = {(e)=>setEmail(e)}
-        />
-        <View style = {styles.buttons}>
-        <TouchableWithoutFeedback onPress={handlePrevious}>
-        <Text style = {styles.previous}>
-          Anterior
-        </Text>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={handleNext}>
-        <Text style = {styles.next}>
-          Siguiente
-        </Text>
-        </TouchableWithoutFeedback>
-        </View>
+      </Text>
+      <View style={styles.viewInput}>
+      <TextInput
+        style={styles.input}
+        placeholder="email"
+        value={email}
+        onChangeText={(e) => setEmail(e)}
+      />
+      {/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) || email === "" ? (
+       null
+      ) : (
+        <Text style={styles.error}>El campo debe ser un email</Text>
+      )}
+      </View>
 
+      <View style={styles.buttons}>
+        <TouchableHighlight  underlayColor={"#fff"} onPress={handlePrevious}>
+          <Text style={styles.previous}>Anterior</Text>
+        </TouchableHighlight>
+        <TouchableHighlight  underlayColor={"#fff"} disabled = {
+          !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) && email !== "")
+        } onPress={handleNext}>
+          <Text style={styles.next}>Siguiente</Text>
+        </TouchableHighlight>
+      </View>
     </View>
-  )
-}
+    { loaderVisible ? <AppLoader />:null}
+    </>
+
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -47,6 +77,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
+  },
+  viewInput: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    height: 60,
   },
   input: {
     borderColor: "#808080",
@@ -67,19 +102,24 @@ const styles = StyleSheet.create({
     color: "#1976D2",
     fontWeight: "bold",
     paddingRight: 90,
-    textDecorationLine: "underline"
+    textDecorationLine: "underline",
   },
   next: {
     color: "#1976D2",
     fontWeight: "bold",
-    textDecorationLine: "underline"
-
+    textDecorationLine: "underline",
   },
 
   title: {
     fontSize: 15,
     paddingBottom: 20,
   },
+  error: {
+    fontSize: 12,
+    paddingTop: 10,
+    color: "red",
+    width: 200,
+  },
 });
 
-export default ForgotPassword
+export default ForgotPassword;

@@ -1,17 +1,14 @@
-import Options from "./src/components/Options";
-import { Provider } from "react-redux";
-import store from "./src/state/store";
+import React from 'react'
+import { Provider } from 'react-redux'
+import store from './src/state/store'
+import Index from "./src/components/Index"
 
-
-export default function App() {
-
+const App = () => {
   return (
-    <Provider store={store}>
-
-          <Options />
-
-    </Provider>
-  ) 
+        <Provider store = {store}>
+            <Index />
+        </Provider>
+    )
 }
 
-
+export default App

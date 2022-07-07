@@ -6,15 +6,22 @@ import {
   StyleSheet,
 } from "react-native";
 import { useState } from "react";
-import { useNavigate } from "react-router-native";
+import { useNavigate, useParams } from "react-router-native";
+import axios from "axios";
 
 const NewPassword = () => {
-  const [newPassword, setNewPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { email } = useParams();
   const navigate = useNavigate();
 
-  const onSubmit = () => {
-    navigate("/")
+  const onSubmit = async () => {
+    const result = await axios.put("http://localhost:3001/new-password", {
+      password: newPassword,
+      email: email,
+    });
+    if (result.status == 200) navigate("/");
+    else console.log("error");
   };
 
   return (
@@ -35,7 +42,45 @@ const NewPassword = () => {
         value={confirmPassword}
         onChangeText={(e) => setConfirmPassword(e)}
       />
-      <TouchableHighlight underlayColor={"#1976D2"} onPress={onSubmit} style={styles.button}>
+      {newPassword === confirmPassword && newPassword !== "" ? (
+        <Text style={styles.errorOk}>Las contraseñas deben ser iguales.</Text>
+      ) : (
+        <Text style={styles.error}>Las contraseñas deben ser iguales.</Text>
+      )}
+      {/\d/.test(newPassword) ? (
+        <Text style={styles.errorOk}>Al menos 1 número.</Text>
+      ) : (
+        <Text style={styles.error}>Al menos 1 número.</Text>
+      )}
+      {/[A-Z]/.test(newPassword) ? (
+        <Text style={styles.errorOk}>Al menos 1 letra mayúscula.</Text>
+      ) : (
+        <Text style={styles.error}>Al menos 1 letra mayúscula.</Text>
+      )}
+      {newPassword.length >= 8 ? (
+        <Text style={styles.errorOk}>Al menos 8 caracteres.</Text>
+      ) : (
+        <Text style={styles.error}>Al menos 8 caracteres.</Text>
+      )}
+      <TouchableHighlight
+        disabled={
+          !(
+            newPassword.length >= 8 &&
+            /[A-Z]/.test(newPassword) &&
+            /\d/.test(newPassword) &&
+            newPassword === confirmPassword
+          )
+        }
+        underlayColor={"#1976D2"}
+        onPress={onSubmit}
+        style={ 
+          !(
+            newPassword.length >= 8 &&
+            /[A-Z]/.test(newPassword) &&
+            /\d/.test(newPassword) &&
+            newPassword === confirmPassword
+          )
+          ? styles.buttonDisabled : styles.button }      >
         <Text style={styles.buttonText}>Cambiar Contraseña</Text>
       </TouchableHighlight>
     </View>
@@ -82,10 +127,33 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
+  buttonDisabled: {
+    alignSelf: "stretch",
+    backgroundColor: "grey",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 80,
+    marginTop: 50,
+    borderRadius: 20,
+  },
+
   title: {
     fontSize: 15,
     paddingRight: 100,
     paddingBottom: 10,
+  },
+  error: {
+    fontSize: 12,
+    paddingTop: 20,
+    color: "red",
+    width: 200,
+  },
+  errorOk: {
+    fontSize: 12,
+    paddingTop: 20,
+    color: "green",
+    width: 200,
   },
 });
 
