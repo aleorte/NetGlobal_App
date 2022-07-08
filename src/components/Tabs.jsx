@@ -3,6 +3,7 @@ import Inicio from "./Inicio";
 import Profile from "./Profile";
 import Inactivities from "./Inactivities";
 import { Ionicons } from "@expo/vector-icons";
+import Assignment from "./Assignment"
 
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
@@ -27,7 +28,7 @@ const Tabs = () => {
       })}
     >
       <Tab.Screen name="Inicio" component={Inicio} />
-      <Tab.Screen name="Tareas" component={Inactivities} />
+      <Tab.Screen name="Tareas" component={Assignment} />
       <Tab.Screen name="Solicitudes" component={Inactivities} />
       <Tab.Screen name="Mi Perfil" component={Profile} />
     </Tab.Navigator>

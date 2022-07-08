@@ -71,7 +71,7 @@ const NewPassword = () => {
             newPassword === confirmPassword
           )
         }
-        underlayColor={"#1976D2"}
+        underlayColor={"#283492"}
         onPress={onSubmit}
         style={ 
           !(
@@ -111,14 +111,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   text: {
-    color: "#1976D2",
+    color: "#283492",
     paddingTop: 10,
     paddingLeft: 110,
     textDecorationLine: "underline",
   },
   button: {
     alignSelf: "stretch",
-    backgroundColor: "#9C27B0",
+    backgroundColor: "#B9158F",
     height: 40,
     justifyContent: "center",
     alignItems: "center",

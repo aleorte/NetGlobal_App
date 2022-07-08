@@ -79,7 +79,7 @@ const Login = () => {
 
       <TouchableHighlight disabled = {
         !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) && password)
-       } underlayColor={"#1976D2"} onPress={onSubmit} style={ !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) && password) ? styles.buttonDisabled : styles.button } >
+       } underlayColor={"#283492"} onPress={onSubmit} style={ !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) && password) ? styles.buttonDisabled : styles.button } >
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableHighlight>
     </View>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: "stretch",
-    backgroundColor: "#9C27B0",
+    backgroundColor: "#B9158F",
     height: 40,
     justifyContent: "center",
     alignItems: "center",
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   text: {
-    color: "#1976D2",
+    color: "#283492",
     paddingTop: 30,
     paddingLeft: 110,
     textDecorationLine: "underline"
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     marginBottom: 20,
+    tintColor: "#283492",
   },
   error: {
     fontSize: 12,

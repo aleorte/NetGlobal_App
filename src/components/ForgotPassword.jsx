@@ -99,13 +99,13 @@ const styles = StyleSheet.create({
     paddingTop: 70,
   },
   previous: {
-    color: "#1976D2",
+    color: "#283492",
     fontWeight: "bold",
     paddingRight: 90,
     textDecorationLine: "underline",
   },
   next: {
-    color: "#1976D2",
+    color: "#283492",
     fontWeight: "bold",
     textDecorationLine: "underline",
   },

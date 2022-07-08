@@ -98,14 +98,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     marginTop: 40,
-    color: "#9C27B0",
+    color: "#B9158F",
   },
   modalText: {
     fontWeight:"bold",
   },
   button: {
     alignSelf: "stretch",
-    backgroundColor: "#9C27B0",
+    backgroundColor: "#B9158F",
     height: 40,
     justifyContent: "center",
     alignItems: "center",
@@ -150,12 +150,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#B9158F",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   subtitle:{
     marginTop:20,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   logout: {
     alignSelf: "stretch",
-    backgroundColor: "#9C27B0",
+    backgroundColor: "#B9158F",
     height: 40,
     justifyContent: "center",
     alignItems: "center",
