@@ -3,6 +3,7 @@ import logger from "redux-logger";
 import guardsReducer from "./guards";
 import licensesReducer from "./licenses";
 import assignmentsReducer from "./assignments";
+import inactivitiesReducer from "./inactivities";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -13,6 +14,7 @@ const store = configureStore({
     guard: guardsReducer,
     license: licensesReducer,
     assignment: assignmentsReducer,
+    inactivities: inactivitiesReducer,
   },
 });
 
