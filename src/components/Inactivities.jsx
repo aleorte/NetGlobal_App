@@ -6,12 +6,13 @@ import { getInactivities } from '../state/inactivities'
 import  InactivitiesCard  from './InactivitiesCard'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import axios from 'axios'
+import moment from 'moment'
 
 
 
 const Inactivities = () => {
   const dispatch = useDispatch()
-  const Inactivities = useSelector(state => state.inactivities)
+  const {inactivities} = useSelector(state => state.inactivities)
   const guard = useSelector(state => state.guard)
   
   useEffect(() => {
@@ -19,8 +20,9 @@ const Inactivities = () => {
   }, [])
 
   const onSubmit = async()=>{
-    const startDate = new Date(startForBackend).toISOString().split("T")[0]
-    const endDate = new Date(endForBackend).toISOString().split("T")[0]
+    const startDate = moment(new Date(startForBackend)).format("YYYY-MM-DD")
+    const endDate = moment(new Date(endForBackend)).format("YYYY-MM-DD")
+
     const newInactivity = await axios.post('http://localhost:3001/inactivities/guard/1', {
       startDate: startDate,
       endDate: endDate
@@ -54,7 +56,7 @@ const Inactivities = () => {
     start = start.split(" ")
     start.splice(-3)
     start.splice(0,1)
-    let startDate = start.join(" - ")
+    let startDate = start.join(" - ").substring(0,15)
     setStart(startDate)
     hideDatePicker("start");
   };
@@ -66,7 +68,7 @@ const Inactivities = () => {
     end = end.split(" ")
     end.splice(-3)
     end.splice(0,1)
-    let endDate = end.join(" - ")
+    let endDate = end.join(" - ").substring(0,15)
     setEnd(endDate)
     hideDatePicker("end");
   };
@@ -185,12 +187,13 @@ const Inactivities = () => {
       </TouchableOpacity>
 
       {
-       Inactivities?.map( (Inactivity) => {
+       inactivities?.map( (Inactivity) => {
          return <InactivitiesCard Inactivity={Inactivity}  key={Math.random()}/>
        })
       }
 
     </ScrollView>
+
   )
 }
 

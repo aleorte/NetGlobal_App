@@ -1,26 +1,54 @@
 import { useEffect } from "react"
-import { View, Text, StyleSheet,ScrollView } from "react-native"
+import { View, Text, StyleSheet,ScrollView,RefreshControl} from "react-native"
 import { useDispatch, useSelector } from "react-redux"
-import { getAssignments } from "../state/assignments"
+import { useState } from "react"
 import Card from "./Card"
+import React from "react"
+import { nextAssignments } from "../state/nextAssignments"
+import { setBoolean } from "../state/boolean"
 
 const Assignments = () => {
     const dispatch = useDispatch()
-    const assignments = useSelector((state) => state.assignment)
+    const guardNextAssignments = useSelector((state) => state.nextAssignments)
     const guard = useSelector((state) => state.guard)
+    const boolean = useSelector((state)=>state.boolean)
+    const [refreshing, setRefreshing] = useState(false);
+
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() =>{
+        
+        dispatch(nextAssignments({ guardId: guard.id})).then(
+            dispatch(setBoolean(!boolean)).then
+            (setRefreshing(false))
+        )}
+
+        );
+
+  
+      }, []);
 
     useEffect(() => {
-        const date = new Date();
-        const month = date.getMonth()
-        dispatch(getAssignments({ guardId: guard.id, month: month }))
+        dispatch(nextAssignments({ guardId: guard.id}))
     }, [])
 
     return (
-        <ScrollView style = {styles.containter}>
+        <ScrollView style = {styles.containter}
+        refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            
+            />}
+        >
             <Text style = {styles.text}>PRÓXIMAS TAREAS: </Text>
            {
-            assignments?.map((assignment)=>{
-                return <Card assignment={assignment} key = {assignment.id} />
+            guardNextAssignments?.map((assignment)=>{
+                return <Card assignment={assignment} key = {assignment.id}/>
             })
            }
         </ScrollView>
@@ -30,7 +58,6 @@ const Assignments = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      // justifyContent: "center",
       alignItems: "center",
       backgroundColor: "#fff",
     },
@@ -39,6 +66,7 @@ const styles = StyleSheet.create({
         fontSize:20,
         paddingLeft: 25,
         paddingTop: 35,
+        marginBottom:20,
         color: "#B9158F",
 
     }

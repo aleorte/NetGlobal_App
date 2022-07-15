@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../state/guards";
 import { useState,useEffect } from "react";
 import { setLicenses } from "../state/licenses";
+import LicensesList from "./LicensesList";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const guard = useSelector((state) => state.guard);
+  const licenses = useSelector((state)=>state.license)
   const [modalVisible, setModalVisible] = useState(false);
   const onSubmit = () => {
     dispatch(logout());
@@ -44,6 +46,11 @@ const Profile = () => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>LICENCIAS</Text>
+            <View style={styles.licensesView}>
+                {licenses?.map((license)=>{
+                  return <LicensesList key={license.id} license={license}/>
+                })}
+            </View>
             <Pressable
               style={[styles.buttonModal, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
@@ -57,7 +64,7 @@ const Profile = () => {
       <Image
         style={styles.image}
         source={{
-          url: "https://www.depo.com.ar/__export/1594732735391/sites/cronica/img/2020/07/14/messi_crop1594732203781.png_792575817.png",
+          uri: guard.image,
         }}
       />
 
@@ -74,9 +81,9 @@ const Profile = () => {
         </Text>
       </View>
       <TouchableHighlight style={styles.button}>
-        <Text style={styles.buttonText} onPress={modalHandle}>
-          Ver licencias
-        </Text>
+          <Text style={styles.buttonText} onPress={modalHandle}>
+            Mis licencias
+          </Text>
       </TouchableHighlight>
       <TouchableHighlight style={styles.logout}>
         <Text style={styles.buttonText} onPress={onSubmit}>
@@ -88,6 +95,10 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
+  licensesView:{
+    width: 250,
+    marginVertical: 30,
+  },
   container: {
     flex: 1,
     // justifyContent: "center",
