@@ -5,7 +5,7 @@ import axios from "axios";
 export const setLicenses = createAsyncThunk("SET_LICENSES",  async(value) => {
 
     const licenses = await axios.get(`http://localhost:3001/guards/${value}/licenses`)
-    return licenses;
+    return licenses.data;
 });
 
 

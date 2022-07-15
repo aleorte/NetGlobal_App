@@ -1,10 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from './Tabs';
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-
 const Home = () => {
+
+
   const MyTheme = {
     dark: false,
     colors: {
@@ -21,6 +22,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
     <StatusBar style="light" />
+
 
     <NavigationContainer theme={MyTheme}>
     <Tabs/>
