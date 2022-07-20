@@ -23,7 +23,7 @@ const Card = ({ assignment }) => {
   const [visible, setVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
   const guard = useSelector((state) => state.guard);
-  const {reload} = useSelector((state)=>state.boolean)
+  const { reload } = useSelector((state) => state.boolean);
   const guardTask = useSelector((state) => state.guardTask);
   const [task, setTask] = useState(
     assignment.state === "COMPLETED"
@@ -39,9 +39,8 @@ const Card = ({ assignment }) => {
   };
 
   useEffect(() => {
-    const now = new Date()
-    if(new Date(assignment.startTime) - now<=300000)
-    setButtonVisible(true)
+    const now = new Date();
+    if (new Date(assignment.startTime) - now <= 300000) setButtonVisible(true);
 
     if (today === assignment.date) {
       if (assignment.id === guardTask.start.id) {
@@ -83,13 +82,13 @@ const Card = ({ assignment }) => {
             location.coords.longitude,
             assignment.branch.coordinateLatitude,
             assignment.branch.coordinateLength
-          ) <= 0.05
+          ) <= 0.15
         )
           dispatch(setStartTime(assignment.id));
         else {
           Alert.alert(
             "Importante",
-            "Debes estar a menos de 50 metros de la sucursal."
+            "Debes estar a menos de 150 metros de la sucursal."
           );
           setTask("Iniciar tarea");
         }
@@ -104,13 +103,13 @@ const Card = ({ assignment }) => {
             location.coords.longitude,
             assignment.branch.coordinateLatitude,
             assignment.branch.coordinateLength
-          ) <= 0.05
+          ) <= 0.15
         ) {
           dispatch(setEndTime(assignment.id));
         } else {
           Alert.alert(
             "Importante",
-            "Debes estar a menos de 50 metros de la sucursal."
+            "Debes estar a menos de 150 metros de la sucursal."
           );
           setTask("Finalizar tarea");
         }
@@ -134,7 +133,7 @@ const Card = ({ assignment }) => {
       onPress={handleTask}
       style={[
         today === assignment.date ? styles.viewCardToday : styles.viewCard,
-        visible && today === assignment.date ? styles.viewHeightBig :null,
+        visible && today === assignment.date ? styles.viewHeightBig : null,
       ]}
     >
       <Text style={styles.date}>{assignment.date}</Text>
@@ -153,37 +152,39 @@ const Card = ({ assignment }) => {
           </Text>
           <Text style={styles.title}>Horario de salida:</Text>
           <Text style={styles.subtitle}>
-          {new Date(assignment.endTime).toLocaleString("es-AR")}{" "}
+            {new Date(assignment.endTime).toLocaleString("es-AR")}{" "}
           </Text>
 
           {today === assignment.date ? (
             <>
               <Text style={styles.title}>Horario real de entrada:</Text>
               <Text style={styles.subtitle}>
-              {assignment.realStartTime ? new Date(assignment.realStartTime).toLocaleString("es-AR"):null}
-
+                {assignment.realStartTime
+                  ? new Date(assignment.realStartTime).toLocaleString("es-AR")
+                  : null}
               </Text>
               <Text style={styles.title}>Horario real de salida:</Text>
               <Text style={styles.subtitle}>
-              {assignment.realEndTime ? new Date(assignment.realStartTime).toLocaleString("es-AR"):null}
+                {assignment.realEndTime
+                  ? new Date(assignment.realEndTime).toLocaleString("es-AR")
+                  : null}
               </Text>
-              {                
-                buttonVisible ? <TouchableHighlight
-                style={[
-                  styles.button,
-                  task === "Finalizar tarea"
-                    ? styles.buttonEnd
-                    : task === "Tarea completa"
-                    ? styles.buttonFinished
-                    : null,
-                ]}
-                underlayColor={"#283492"}
-                onPress={buttonHandle}
-              >
-                <Text style={styles.buttonText}>{task}</Text>
-              </TouchableHighlight> : null
-              }
-
+              {buttonVisible ? (
+                <TouchableHighlight
+                  style={[
+                    styles.button,
+                    task === "Finalizar tarea"
+                      ? styles.buttonEnd
+                      : task === "Tarea completa"
+                      ? styles.buttonFinished
+                      : null,
+                  ]}
+                  underlayColor={"#283492"}
+                  onPress={buttonHandle}
+                >
+                  <Text style={styles.buttonText}>{task}</Text>
+                </TouchableHighlight>
+              ) : null}
             </>
           ) : null}
         </View>
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   details: {
-    height: 140,
+    height: 220,
     borderRadius: 20,
     marginTop: 20,
     alignSelf: "stretch",

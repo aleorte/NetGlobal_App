@@ -67,10 +67,12 @@ const Inicio = () => {
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={()=>onRefresh(selectedMonth)} />
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => onRefresh(selectedMonth)}
+        />
       }
     >
-
       <Text style={styles.title}>SELECCIONAR MES</Text>
       <View style={styles.monthsButtons}>
         <TouchableHighlight

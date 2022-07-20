@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../state/guards";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { setLicenses } from "../state/licenses";
 import LicensesList from "./LicensesList";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const guard = useSelector((state) => state.guard);
-  const licenses = useSelector((state)=>state.license)
+  const licenses = useSelector((state) => state.license);
   const [modalVisible, setModalVisible] = useState(false);
   const onSubmit = () => {
     dispatch(logout());
@@ -25,10 +25,10 @@ const Profile = () => {
     setModalVisible(!modalVisible);
   };
 
-  useEffect(()=>{
-
-    dispatch(setLicenses(guard.id))    
-  },[])
+  useEffect(() => {
+    console.log(guard);
+    dispatch(setLicenses(guard.id));
+  }, []);
 
   return guard.id ? (
     <View style={styles.container}>
@@ -42,14 +42,13 @@ const Profile = () => {
           setModalVisible(!modalVisible);
         }}
       >
-
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>LICENCIAS</Text>
             <View style={styles.licensesView}>
-                {licenses?.map((license)=>{
-                  return <LicensesList key={license.id} license={license}/>
-                })}
+              {licenses?.map((license) => {
+                return <LicensesList key={license.id} license={license} />;
+              })}
             </View>
             <Pressable
               style={[styles.buttonModal, styles.buttonClose]}
@@ -60,13 +59,19 @@ const Profile = () => {
           </View>
         </View>
       </Modal>
-
-      <Image
-        style={styles.image}
-        source={{
-          uri: guard.image,
-        }}
-      />
+      {guard.image !== "" ? (
+        <Image
+          style={styles.image}
+          source={{
+            uri: guard.image,
+          }}
+        />
+      ) : (
+        <Image
+          style={styles.image}
+          source={require("../../assets/guardia.png")}
+        />
+      )}
 
       <View>
         <Text style={styles.name}>
@@ -81,9 +86,9 @@ const Profile = () => {
         </Text>
       </View>
       <TouchableHighlight style={styles.button}>
-          <Text style={styles.buttonText} onPress={modalHandle}>
-            Mis licencias
-          </Text>
+        <Text style={styles.buttonText} onPress={modalHandle}>
+          Mis licencias
+        </Text>
       </TouchableHighlight>
       <TouchableHighlight style={styles.logout}>
         <Text style={styles.buttonText} onPress={onSubmit}>
@@ -95,7 +100,7 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
-  licensesView:{
+  licensesView: {
     width: 250,
     marginVertical: 30,
   },
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
     color: "#B9158F",
   },
   modalText: {
-    fontWeight:"bold",
+    fontWeight: "bold",
   },
   button: {
     alignSelf: "stretch",
@@ -127,7 +132,7 @@ const styles = StyleSheet.create({
   buttonModal: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonText: {
     color: "white",
@@ -168,9 +173,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  subtitle:{
-    marginTop:20,
-    fontWeight: "bold"
+  subtitle: {
+    marginTop: 20,
+    fontWeight: "bold",
   },
   logout: {
     alignSelf: "stretch",

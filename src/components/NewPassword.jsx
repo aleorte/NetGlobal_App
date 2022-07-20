@@ -16,7 +16,7 @@ const NewPassword = () => {
   const navigate = useNavigate();
 
   const onSubmit = async () => {
-    const result = await axios.put("http://localhost:3001/new-password", {
+    const result = await axios.put("http://192.168.0.77:3001/new-password", {
       password: newPassword,
       email: email,
     });
@@ -73,14 +73,17 @@ const NewPassword = () => {
         }
         underlayColor={"#283492"}
         onPress={onSubmit}
-        style={ 
+        style={
           !(
             newPassword.length >= 8 &&
             /[A-Z]/.test(newPassword) &&
             /\d/.test(newPassword) &&
             newPassword === confirmPassword
           )
-          ? styles.buttonDisabled : styles.button }      >
+            ? styles.buttonDisabled
+            : styles.button
+        }
+      >
         <Text style={styles.buttonText}>Cambiar Contraseña</Text>
       </TouchableHighlight>
     </View>

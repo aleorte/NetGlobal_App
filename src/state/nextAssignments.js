@@ -4,7 +4,7 @@ import axios from "axios";
 export const nextAssignments = createAsyncThunk("GET_NEXT_ASSIGNMENTS",  async(value) => {
 
      try{
-      const assignment = await axios.get(`http://localhost:3001/guards/${value.guardId}/nextTasks`)
+      const assignment = await axios.get(`http://192.168.0.77:3001/guards/${value.guardId}/nextTasks`)
       return assignment.data;
      }
      catch(error)
@@ -15,12 +15,12 @@ export const nextAssignments = createAsyncThunk("GET_NEXT_ASSIGNMENTS",  async(v
 export const assignmentStartTime = createAsyncThunk("SET_ASSIGNMENT_START_TIME",  async(value) => {
 
     try {
-       await axios.put(`http://localhost:3001/assignments/${value.assignmentId}`, {
+       await axios.put(`http://192.168.0.77:3001/assignments/${value.assignmentId}`, {
           realStartTime: value.time,
         });
 
 
-        const assignment = await await axios.get(`http://localhost:3001/guards/${value.guardId}/nextTasks`)
+        const assignment = await await axios.get(`http://192.168.0.77:3001/guards/${value.guardId}/nextTasks`)
         return assignment.data;
 
       } catch (err) {
@@ -32,11 +32,11 @@ export const assignmentStartTime = createAsyncThunk("SET_ASSIGNMENT_START_TIME",
 export const assignmentEndTime = createAsyncThunk("SET_ASSIGNMENT_END_TIME",  async(value) => {
 
     try {
-        await axios.put(`http://localhost:3001/assignments/${value.assignmentId}`, {
+        await axios.put(`http://192.168.0.77:3001/assignments/${value.assignmentId}`, {
            realEndTime: value.time,
          });
          
-         const assignment = await await axios.get(`http://localhost:3001/guards/${value.guardId}/nextTasks`)
+         const assignment = await await axios.get(`http://192.168.0.77:3001/guards/${value.guardId}/nextTasks`)
          return assignment.data;
  
        } catch (err) {

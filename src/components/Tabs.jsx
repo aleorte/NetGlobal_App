@@ -3,7 +3,7 @@ import Inicio from "./Inicio";
 import Profile from "./Profile";
 import Inactivities from "./Inactivities";
 import { Ionicons } from "@expo/vector-icons";
-import Assignment from "./Assignment"
+import Assignment from "./Assignment";
 
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
